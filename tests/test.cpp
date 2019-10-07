@@ -25,12 +25,12 @@ TEST(Stack, task1) {
   Stack<int> move_s1(std::move(s1));
 
   EXPECT_EQ(move_s1.head(), -10);
-  EXPECT_THROW(s1.head(), std::logic_error);
+  EXPECT_THROW(auto a = s1.head(), std::logic_error);
 
   auto s2 = std::move(move_s1);
 
   EXPECT_EQ(s2.head(), -10);
-  EXPECT_THROW(move_s1.head(), std::logic_error);
+  EXPECT_THROW(auto a = move_s1.head(), std::logic_error);
 }
 
 TEST(Stack, task2) {
@@ -46,5 +46,5 @@ TEST(Stack, task2) {
   Stack<std::string> moved_s(std::move(s));
 
   EXPECT_EQ(moved_s.head(), "strstr");
-  EXPECT_THROW(s.head(), std::logic_error);
+  EXPECT_THROW(auto a = s.head(), std::logic_error);
 }
