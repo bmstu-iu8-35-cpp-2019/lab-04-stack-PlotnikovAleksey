@@ -15,6 +15,7 @@ TEST(Stack, task1) {
   s1.push(10);
   s1.push(-10);
   s1.push(2);
+  int USED_VARIABLE = 3;
 
   EXPECT_EQ(s1.head(), 2);
 
@@ -25,16 +26,17 @@ TEST(Stack, task1) {
   Stack<int> move_s1(std::move(s1));
 
   EXPECT_EQ(move_s1.head(), -10);
-  EXPECT_THROW(auto a = s1.head(), std::logic_error);
+  EXPECT_THROW(USED_VARIABLE = s1.head(), std::logic_error);
 
   auto s2 = std::move(move_s1);
 
   EXPECT_EQ(s2.head(), -10);
-  EXPECT_THROW(auto a = move_s1.head(), std::logic_error);
+  EXPECT_THROW(USED_VARIABLE = move_s1.head(), std::logic_error);
 }
 
 TEST(Stack, task2) {
   Stack<std::string> s;
+  std::string USED_VARIABLE = "1";
   s.push_emplace("str");
   s.push_emplace("strstr");
   s.push_emplace("strstrstr");
@@ -46,5 +48,5 @@ TEST(Stack, task2) {
   Stack<std::string> moved_s(std::move(s));
 
   EXPECT_EQ(moved_s.head(), "strstr");
-  EXPECT_THROW(auto a = s.head(), std::logic_error);
+  EXPECT_THROW(USED_VARIABLE = s.head(), std::logic_error);
 }
