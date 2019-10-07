@@ -83,7 +83,10 @@ class Stack {
     return res;
   }
 
-  const T& head() const { return data[size - 1]; }
+  const T& head() const {
+    if (size == 0) throw std::logic_error("Stack is empty");
+    return data[size - 1];
+  }
 
   template <typename... Args>
   void push_emplace(Args&&... value) {
