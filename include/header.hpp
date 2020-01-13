@@ -6,6 +6,7 @@
 #include <iostream>
 #include <utility>
 #include <exception>
+#include <type_traits>
 
 template <typename T>
 class Stack {
@@ -51,7 +52,10 @@ class Stack {
     size++;
     T* temp = new T[size];
     for (size_t i = 0; i < size - 1; i++) temp[i] = data[i];
-    temp[size - 1] = std::move(value);
+    if (std::is_move_assignable<T>())
+      temp[size - 1] = std::move(value);
+    else
+      temp[size - 1] = value;
     delete[] data;
     data = temp;
   }
@@ -93,7 +97,10 @@ class Stack {
     size++;
     T* temp = new T[size];
     for (size_t i = 0; i < size - 1; i++) temp[i] = data[i];
-    temp[size - 1] = std::move(T(value...));
+    if (std::is_move_assignable<T>())
+      temp[size - 1] = std::move(T(value...));
+    else
+      temp[size - 1] = T(value...);
     delete[] data;
     data = temp;
   }
